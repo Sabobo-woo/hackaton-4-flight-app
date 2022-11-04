@@ -9,6 +9,12 @@ const App = () => {
   const [counterNr, setNrOnCounter] = useState(1);
   const [apiUrl, setApiUrl] = useState(null);
   const [isDirect, setIsDirect] = useState(false);
+  const [searchInput, setSearchInput] = useState({
+    flyFrom: "PRG",
+    flyTo: "VLC",
+    dateFrom: null,
+    dateTo: null
+  })
 
   //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +82,12 @@ const App = () => {
 
     <div className="whole-app">
 
-      <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
+      <SearchBar
+        setApiUrl={setApiUrl}
+        setIsDirect={setIsDirect}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
 
       <div className="flight-results">
         <Flightresults
@@ -85,6 +96,7 @@ const App = () => {
           counterNr={counterNr}
           setNrOnCounter={setNrOnCounter}
           isDirect={isDirect}
+          searchInput={searchInput}
         />
       </div>
 
