@@ -65,21 +65,27 @@ const App = () => {
   }, [apiUrl]);
 
 
-  const filterFlightData =
-    flightData === null
-      ? []
-      : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
+  // const filterFlightData =
+  //   flightData === null
+  //     ? []
+  //     : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
 
   return (
     <div className="flight-results">
-
-      <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
-      <Flightresults flightData={flightData} isLoading={isLoading} />
-
-      <PageCounter
+      {/* <PageCounter
         counterNr={counterNr}
         setNrOnCounter={setNrOnCounter}
-      />
+      /> */}
+
+      <SearchBar
+        apiUrl={apiUrl}
+        setApiUrl={setApiUrl} />
+
+      <Flightresults
+        flightData={flightData}
+        isLoading={isLoading}
+        counterNr={counterNr}
+        setNrOnCounter={setNrOnCounter} />
 
     </div>
   );
