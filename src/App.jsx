@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import Flight from './components/Flightcard';
 import PageCounter from './components/PageCounter';
-
-
-
-
 
 const App = () => {
   const [flightData, setFlightData] = useState(null);
