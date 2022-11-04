@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
-import Flight from './components/Flightcard';
+import Flightresults from './components/Flightresults';
 import PageCounter from './components/PageCounter';
-
-
-
-
 
 const App = () => {
   const [flightData, setFlightData] = useState(null);
   const [counterNr, setNrOnCounter] = useState(1);
   const [apiUrl, setApiUrl] = useState(null);
+  const [isDirect, setIsDirect] = useState(false);
 
   //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +26,7 @@ const App = () => {
   // // apparently just a think for a "wait for this" message
   // // to the user 
 
-  const getApiUrl = () => apiUrl;
+  // const getApiUrl = () => apiUrl;
 
   // tells the code what you want it to react to?? using the 
   // array at the bottom that you sort of understand
@@ -46,7 +43,7 @@ const App = () => {
 
       // the usual except it calls that function that builds the url
       // with our search data
-      const url = getApiUrl();
+      const url = apiUrl;
       const res = await fetch(url);
       const data = await res.json();
 
@@ -59,8 +56,9 @@ const App = () => {
       setIsLoading(false);
       //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
     };
-
-    loadData();
+    if (apiUrl !== null) {
+      loadData();
+    }
 
     // only loads data if something has been searched (need searchQuery in [] below)
     // if (searchQuery) {
@@ -69,38 +67,28 @@ const App = () => {
   }, [apiUrl]);
 
 
-  const filterFlightData =
-    flightData === null
-      ? []
-      : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
+  // const filterFlightData =
+  //   flightData === null
+  //     ? []
+  //     : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
 
   return (
-    <div className="flight-results">
 
+    <div className="whole-app">
 
-      <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
+      <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
 
-      <PageCounter
-        counterNr={counterNr}
-        setNrOnCounter={setNrOnCounter}
-      />
+      <div className="flight-results">
+        <Flightresults
+          flightData={flightData}
+          isLoading={isLoading}
+          counterNr={counterNr}
+          setNrOnCounter={setNrOnCounter}
+          isDirect={isDirect}
+        />
+      </div>
 
-      {
-        flightData === null
-          ? <div>Loading...</div>
-          : filterFlightData.map(flight => {
-            return <Flight
-              key={flight.id}
-              flight={flight}
-              //comes from search
-              dateFrom={flight.dateFrom}
-              //comes from search
-              dateTo={flight.dateTo}
-            />
-          })
-      }
-
-    </div>
+    </div >
   );
 };
 
