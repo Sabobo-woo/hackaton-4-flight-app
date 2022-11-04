@@ -1,9 +1,4 @@
 import { useState } from 'react';
-// import { Luxon } from 'luxon';
-// import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import DatePicker from './components/DatePicker';
 
 export default function SearchBar({ apiUrl, setApiUrl }) {
 
@@ -14,16 +9,12 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
         dateTo: null
     })
 
-    // const [fromDate, setFromDate] = useState();
-
     const handleFlyFrom = (e) => {
         setSearchInput({ ...searchInput, flyFrom: e.target.value });
-        console.log(searchInput);
     }
 
     const handleFlyTo = (e) => {
         setSearchInput({ ...searchInput, flyTo: e.target.value });
-        console.log(searchInput);
     }
 
     const handleDateFrom = (e) => {
@@ -49,15 +40,7 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
                 <option value="PED">Pardubice</option>
             </select>
 
-            {/* <DatePicker>
-                label="Leave"
-                value={fromDate}
-                onChange={(newValue) => {
-                    setFromDate(newValue);
-                }}
-            </DatePicker> */}
-
-            <input type="datetime-local" name="timeFrom" value="DD/MM/YYYY" onchange={handleDateFrom}></input>
+            <input type="date" name="timeFrom" onChange={handleDateFrom}></input>
 
             <select name="to" onChange={handleFlyTo} >
                 <option value="VLC">Valencia</option>
@@ -67,10 +50,7 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
                 <option value="ATH">Athens</option>
             </select>
 
-            {/* <DatePicker */}
-
-            <input type="datetime-local" name="timeTo" value="DD/MM/YYYY" onchange={handleDateTo}></input>
-
+            <input type="date" name="timeTo" onChange={handleDateTo}></input>
 
             <input type="checkbox" name="direct"></input>
             <label htmlFor="direct">Direct</label>
