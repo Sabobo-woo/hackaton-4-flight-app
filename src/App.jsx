@@ -74,17 +74,19 @@ const App = () => {
 
   return (
 
-    <div className="flight-results">
+    <div className="whole-app">
 
       <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
 
-      <Flightresults
-        flightData={flightData}
-        isLoading={isLoading}
-        counterNr={counterNr}
-        setNrOnCounter={setNrOnCounter}
-        isDirect={isDirect}
-      />
+      <div className="flight-results">
+        <Flightresults
+          flightData={flightData}
+          isLoading={isLoading}
+          counterNr={counterNr}
+          setNrOnCounter={setNrOnCounter}
+          isDirect={isDirect}
+        />
+      </div>
 
     </div >
   );
