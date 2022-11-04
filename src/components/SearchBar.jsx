@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export default function SearchBar({ apiUrl, setApiUrl }) {
+export default function SearchBar({ setApiUrl, setIsDirect }) {
 
     const [searchInput, setSearchInput] = useState({
-        flyFrom: null,
-        flyTo: null,
+        flyFrom: "PRG",
+        flyTo: "VLC",
         dateFrom: null,
         dateTo: null
     })
@@ -25,15 +25,18 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
         setSearchInput({ ...searchInput, dateTo: e.target.value })
     }
 
+    const handleChecked = (e) => {
+        setIsDirect(document.getElementById("direct").checked)
+    }
+
     const handleSearch = () => {
         setApiUrl(`https://api.skypicker.com/flights?fly_from=${searchInput.flyFrom}&fly_to=${searchInput.flyTo}&date_from=${searchInput.dateFrom}&date_to=${searchInput.dateTo}&limit=5&partner=data4youcbp202106`)
     }
 
     return (
         <div className="searchbar">
-            {console.log(searchInput)}
-            {console.log(apiUrl)}
-            <select name="from" onChange={handleFlyFrom}>
+            {/* {console.log(searchInput)} */}
+            <select name="from" onChange={handleFlyFrom} value={searchInput.flyFrom}>
                 <option value="PRG">Prague</option>
                 <option value="BER">Berlin</option>
                 <option value="WAW">Warsaw</option>
@@ -42,7 +45,7 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
 
             <input type="date" name="timeFrom" onChange={handleDateFrom}></input>
 
-            <select name="to" onChange={handleFlyTo} >
+            <select name="to" onChange={handleFlyTo} value={searchInput.flyTo}>
                 <option value="VLC">Valencia</option>
                 <option value="BCN">Barcelona</option>
                 <option value="MAD">Madrid</option>
@@ -52,7 +55,7 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
 
             <input type="date" name="timeTo" onChange={handleDateTo}></input>
 
-            <input type="checkbox" name="direct"></input>
+            <input type="checkbox" id="direct" onChange={handleChecked}></input>
             <label htmlFor="direct">Direct</label>
 
             <button onClick={handleSearch}>Search</button>

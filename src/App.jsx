@@ -11,6 +11,7 @@ import Flight from './components/Flightcard';
 const App = () => {
   const [flightData, setFlightData] = useState(null);
   const [apiUrl, setApiUrl] = useState(null);
+  const [isDirect, setIsDirect] = useState(false);
 
   //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ const App = () => {
   // // apparently just a think for a "wait for this" message
   // // to the user 
 
-  const getApiUrl = () => apiUrl;
+  // const getApiUrl = () => apiUrl;
 
   // tells the code what you want it to react to?? using the 
   // array at the bottom that you sort of understand
@@ -45,7 +46,7 @@ const App = () => {
 
       // the usual except it calls that function that builds the url
       // with our search data
-      const url = getApiUrl();
+      const url = apiUrl;
       const res = await fetch(url);
       const data = await res.json();
 
@@ -58,8 +59,9 @@ const App = () => {
       setIsLoading(false);
       //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
     };
-
-    loadData();
+    if (apiUrl !== null) {
+      loadData();
+    }
 
     // only loads data if something has been searched (need searchQuery in [] below)
     // if (searchQuery) {
@@ -69,16 +71,16 @@ const App = () => {
 
   // makes the actual searchy thing in its entirety
   return (
-    <div>
+    < div >
 
-      <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
+      <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
 
 
       <div className="flight-results">
+
         {
-          flightData === null
-            ? <p>Loading...</p>
-            : flightData.data.map(flight => {
+          flightData !== null
+            ? flightData.data.map(flight => {
               return <Flight
                 key={flight.id}
                 flight={flight}
@@ -86,11 +88,22 @@ const App = () => {
                 dateFrom={flight.dateFrom}
                 //comes from search
                 dateTo={flight.dateTo}
+                isDirect={isDirect}
               />
             })
+            : <>
+              {
+                flightData === null && isLoading === true
+                  ? <p>Loading...</p>
+                  : <p>Fly somewhere!</p>
+              }
+            </>
         }
+
+
+
       </div>
-    </div>
+    </div >
   );
 };
 
