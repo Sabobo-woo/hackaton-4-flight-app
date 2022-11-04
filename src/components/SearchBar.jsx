@@ -43,6 +43,7 @@ export default function SearchBar({ setApiUrl, setIsDirect }) {
                 <option value="PED">Pardubice</option>
             </select>
 
+
             <input type="date" name="timeFrom" onChange={handleDateFrom}></input>
 
             <select name="to" onChange={handleFlyTo} value={searchInput.flyTo}>

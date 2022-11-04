@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
-import Flight from './components/Flightcard';
-
+import Flightresults from './components/Flightresults';
+import PageCounter from './components/PageCounter';
 
 
 
@@ -10,6 +10,7 @@ import Flight from './components/Flightcard';
 
 const App = () => {
   const [flightData, setFlightData] = useState(null);
+  const [counterNr, setNrOnCounter] = useState(1);
   const [apiUrl, setApiUrl] = useState(null);
   const [isDirect, setIsDirect] = useState(false);
 
@@ -69,12 +70,23 @@ const App = () => {
     // }
   }, [apiUrl]);
 
-  // makes the actual searchy thing in its entirety
+
+  const filterFlightData =
+    flightData === null
+      ? []
+      : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
+
   return (
-    < div >
+
+    <div className="flight-results">
 
       <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
+      <Flightresults flightData={flightData} isLoading={isLoading} />
 
+      <PageCounter
+        counterNr={counterNr}
+        setNrOnCounter={setNrOnCounter}
+      />
 
       <div className="flight-results">
 
