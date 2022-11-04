@@ -21,6 +21,7 @@ export default function ({ flightData, isLoading, counterNr, setNrOnCounter, isD
       <PageCounter
         counterNr={counterNr}
         setNrOnCounter={setNrOnCounter}
+        flightData={flightData}
       />
       {
 

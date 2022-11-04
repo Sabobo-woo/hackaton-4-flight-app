@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
-export default function PageCounter({ counterNr, setNrOnCounter }) {
+export default function PageCounter({ counterNr, setNrOnCounter, flightData }) {
 
   const increaseCount = () => {
-    setNrOnCounter(counterNr + 1);
+    if ((counterNr * 10) < flightData.data.length) {
+      setNrOnCounter(counterNr + 1);
+    }
   }
 
   const lowerCount = () => {
