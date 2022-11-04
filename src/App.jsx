@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Flight from './components/Flightcard';
+
+
 
 const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
   `https://api.skypicker.com/flights?fly_from=${flyFrom}&fly_to=${flyTo}&date_from=${dateFrom}&date_to=${dateTo}&limit=${resultLimit}&partner=data4youcbp202106`;
 
 const App = () => {
-  const [flightData, setFlightData] = useState("");
+  const [flightData, setFlightData] = useState(null);
 
+  const dateFrom = '11/11/2022';
+  const dateTo = '20/11/2022';
   // // for setting and holding whatever we search for
   // const [searchQuery, setSearchQuery] = useState("");
   // // I assume for setting and holding whatever we get back
@@ -25,9 +30,10 @@ const App = () => {
       // fucking why though?
       setIsLoading(true);
 
-      // the usual except it calls that function that builds the url 
+      // the usual except it calls that function that builds the url
       // with our search data
-      const url = getApiUrl('PRG', 'VLC', '11/11/2022', '20/11/2022', 10);
+      console.log(dateFrom)
+      const url = getApiUrl('PRG', 'VLC', dateFrom, dateTo, 10);
       const res = await fetch(url);
       const data = await res.json();
 
@@ -49,8 +55,22 @@ const App = () => {
 
   // makes the actual searchy thing in its entirety
   return (
-    <div>
+    <div className="flight-results">
+      {
 
+        flightData === null
+          ? <div>Loading...</div>
+          : flightData.data.map(flight => {
+            return <Flight
+              key={flight.id}
+              flight={flight}
+              //comes from search
+              dateFrom={dateFrom}
+              //comes from search
+              dateTo={dateTo}
+            />
+          })
+      }
     </div>
   );
 };
