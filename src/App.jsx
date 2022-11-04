@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
-import Flight from './components/Flightcard';
+import Flightresults from './components/Flightresults';
 import PageCounter from './components/PageCounter';
 
 const App = () => {
@@ -55,9 +55,9 @@ const App = () => {
       setIsLoading(false);
       //+++++++++++++++Bri&Bina's commented junk+++++++++++++++
     };
-
-    loadData();
-
+    if (apiUrl !== null) {
+      loadData();
+    }
     // only loads data if something has been searched (need searchQuery in [] below)
     // if (searchQuery) {
     //   loadData();
@@ -74,26 +74,12 @@ const App = () => {
     <div className="flight-results">
 
       <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
+      <Flightresults flightData={flightData} isLoading={isLoading} />
 
       <PageCounter
         counterNr={counterNr}
         setNrOnCounter={setNrOnCounter}
       />
-
-      {
-        flightData === null
-          ? <div>Loading...</div>
-          : filterFlightData.map(flight => {
-            return <Flight
-              key={flight.id}
-              flight={flight}
-              //comes from search
-              dateFrom={flight.dateFrom}
-              //comes from search
-              dateTo={flight.dateTo}
-            />
-          })
-      }
 
     </div>
   );
