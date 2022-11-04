@@ -33,7 +33,7 @@ const App = () => {
       // the usual except it calls that function that builds the url
       // with our search data
       console.log(dateFrom)
-      const url = getApiUrl('PRG', 'VLC', dateFrom, dateTo, 10);
+      const url = getApiUrl('PRG', 'VLC', dateFrom, dateTo, 100);
       const res = await fetch(url);
       const data = await res.json();
 
