@@ -5,11 +5,12 @@ import Flight from './components/Flightcard';
 
 
 
+
 const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
   `https://api.skypicker.com/flights?fly_from=${flyFrom}&fly_to=${flyTo}&date_from=${dateFrom}&date_to=${dateTo}&limit=${resultLimit}&partner=data4youcbp202106`;
 
 const App = () => {
-  const [flightData, setFlightData] = useState("");
+  const [flightData, setFlightData] = useState(null);
   const [apiUrl, setApiUrl] = useState("");
 
 
@@ -35,7 +36,7 @@ const App = () => {
 
       // the usual except it calls that function that builds the url
       // with our search data
-      console.log(dateFrom)
+      // console.log(dateFrom)
       const url = getApiUrl('PRG', 'VLC', dateFrom, dateTo, 100);
       const res = await fetch(url);
       const data = await res.json();
@@ -43,7 +44,7 @@ const App = () => {
       // this appears to be pulling the search data from some kind 
       // of magic that generated it
       setFlightData(data);
-      console.log(data);
+      // console.log(data);
 
       setIsLoading(false);
     };
@@ -59,12 +60,14 @@ const App = () => {
   // makes the actual searchy thing in its entirety
   return (
     <div>
+
       <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
+
+
       <div className="flight-results">
         {
-
           flightData === null
-            ? <div>Loading...</div>
+            ? <p>Loading...</p>
             : flightData.data.map(flight => {
               return <Flight
                 key={flight.id}

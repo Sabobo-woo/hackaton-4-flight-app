@@ -1,14 +1,11 @@
-import { Luxon } from 'luxon';
-import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
+// import { Luxon } from 'luxon';
+// import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import DatePicker from './components/DatePicker';
 
 export default function SearchBar({ apiUrl, setApiUrl }) {
-
-    const fromDestination = '';
-    const toDestination = '';
-
 
     const [searchInput, setSearchInput] = useState({
         flyFrom: null,
@@ -17,10 +14,7 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
         dateTo: null
     })
 
-    const [fromDate, setFromDate] = useState();
-
-    // const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
-    //     `https://api.skypicker.com/flights?fly_from=${flyFrom}&fly_to=${flyTo}&date_from=${dateFrom}&date_to=${dateTo}&limit=${resultLimit}&partner=data4youcbp202106`;
+    // const [fromDate, setFromDate] = useState();
 
     const handleFlyFrom = (e) => {
         setSearchInput({ ...searchInput, flyFrom: e.target.value });
@@ -32,13 +26,13 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
         console.log(searchInput);
     }
 
-    // const handleDateFrom = (e) => {
-    //     setSearchInput({...searchInput, dateFrom:e.target.value})
-    // }
+    const handleDateFrom = (e) => {
+        setSearchInput({ ...searchInput, dateFrom: e.target.value })
+    }
 
-    // const handleDateTo = (e) => {
-    //     setSearchInput({...searchInput, dateTo:e.target.value})
-    // }
+    const handleDateTo = (e) => {
+        setSearchInput({ ...searchInput, dateTo: e.target.value })
+    }
 
     const handleSearch = () => {
         setApiUrl(`https://api.skypicker.com/flights?fly_from=${searchInput.flyFrom}&fly_to=${searchInput.flyTo}&date_from=${searchInput.dateFrom}&date_to=${searchInput.dateTo}&limit=5&partner=data4youcbp202106`)
@@ -55,16 +49,15 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
                 <option value="PED">Pardubice</option>
             </select>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                    label="Basic example"
-                    value={value}
-                    onChange={(newValue) => {
-                        setValue(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                />
-            </LocalizationProvider>
+            {/* <DatePicker>
+                label="Leave"
+                value={fromDate}
+                onChange={(newValue) => {
+                    setFromDate(newValue);
+                }}
+            </DatePicker> */}
+
+            <input type="datetime-local" name="timeFrom" value="DD/MM/YYYY" onchange={handleDateFrom}></input>
 
             <select name="to" onChange={handleFlyTo} >
                 <option value="VLC">Valencia</option>
@@ -75,6 +68,9 @@ export default function SearchBar({ apiUrl, setApiUrl }) {
             </select>
 
             {/* <DatePicker */}
+
+            <input type="datetime-local" name="timeTo" value="DD/MM/YYYY" onchange={handleDateTo}></input>
+
 
             <input type="checkbox" name="direct"></input>
             <label htmlFor="direct">Direct</label>
