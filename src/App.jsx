@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './App.css';
 import Flight from './components/Flightcard';
+import PageCounter from './components/PageCounter';
 
 
 const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
@@ -9,6 +10,7 @@ const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
 
 const App = () => {
   const [flightData, setFlightData] = useState(null);
+  const [counterNr, setNrOnCounter] = useState(1);
 
   const dateFrom = '11/11/2022';
   const dateTo = '20/11/2022';
@@ -53,25 +55,24 @@ const App = () => {
     // }
   }, []);
 
-  // MUCKING ABOUT WITH PAGINATION
-  const [currentPage, setCurrentPage] = useState(0);
 
-  const perPage = 10;
-  const offset = currentPage * perPage;
-  const currentPageData = flightData
-    .slice(offset, offset + perPage)
-    .map(({ thumburl }) => <img src={thumburl} />);
-  const pageCount = Math.ceil(data.length / perPage);
+  const filterFlightData =
+    flightData === null
+      ? []
+      : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
 
-
-  // makes the actual searchy thing in its entirety
   return (
     <div className="flight-results">
-      {
 
+      <PageCounter
+        counterNr={counterNr}
+        setNrOnCounter={setNrOnCounter}
+      />
+
+      {
         flightData === null
           ? <div>Loading...</div>
-          : flightData.data.map(flight => {
+          : filterFlightData.map(flight => {
             return <Flight
               key={flight.id}
               flight={flight}
@@ -82,6 +83,7 @@ const App = () => {
             />
           })
       }
+
     </div>
   );
 };
