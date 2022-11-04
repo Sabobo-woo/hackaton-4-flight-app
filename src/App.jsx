@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import './App.css';
 import Flight from './components/Flightcard';
-
 
 
 const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
@@ -52,6 +52,17 @@ const App = () => {
     //   loadData();
     // }
   }, []);
+
+  // MUCKING ABOUT WITH PAGINATION
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const perPage = 10;
+  const offset = currentPage * perPage;
+  const currentPageData = flightData
+    .slice(offset, offset + perPage)
+    .map(({ thumburl }) => <img src={thumburl} />);
+  const pageCount = Math.ceil(data.length / perPage);
+
 
   // makes the actual searchy thing in its entirety
   return (
