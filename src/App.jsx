@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import SearchBar from './components/SearchBar';
 
 const getApiUrl = (flyFrom, flyTo, dateFrom, dateTo, resultLimit) =>
   `https://api.skypicker.com/flights?fly_from=${flyFrom}&fly_to=${flyTo}&date_from=${dateFrom}&date_to=${dateTo}&limit=${resultLimit}&partner=data4youcbp202106`;
 
 const App = () => {
   const [flightData, setFlightData] = useState("");
+  const [apiUrl, setApiUrl] = useState("");
+
+  // const [placeFrom, setPlaceFrom] = useState("");
+  // const [timeFrom, setTimeFrom] = useState("");
+  // const [placeTo, setPlaceTo] = useState("");
+  // const [timeTo, setTimeTo] = useState("");
+  // const [isDirect, setIsDirect] = useState(false);
+
+
 
   // // for setting and holding whatever we search for
   // const [searchQuery, setSearchQuery] = useState("");
@@ -50,7 +60,7 @@ const App = () => {
   // makes the actual searchy thing in its entirety
   return (
     <div>
-
+      <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
     </div>
   );
 };
