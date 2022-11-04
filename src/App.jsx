@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import Flightresults from './components/Flightresults';
@@ -79,6 +78,7 @@ const App = () => {
     <div className="flight-results">
 
       <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
+      <Flightresults flightData={flightData} isLoading={isLoading} />
 
       <PageCounter
         counterNr={counterNr}
