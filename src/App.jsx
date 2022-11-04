@@ -4,10 +4,6 @@ import SearchBar from './components/SearchBar';
 import Flightresults from './components/Flightresults';
 import PageCounter from './components/PageCounter';
 
-
-
-
-
 const App = () => {
   const [flightData, setFlightData] = useState(null);
   const [counterNr, setNrOnCounter] = useState(1);
@@ -71,50 +67,23 @@ const App = () => {
   }, [apiUrl]);
 
 
-  const filterFlightData =
-    flightData === null
-      ? []
-      : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
+  // const filterFlightData =
+  //   flightData === null
+  //     ? []
+  //     : flightData.data.filter((flight, i) => i >= ((counterNr - 1) * 10) && i < ((counterNr * 10)));
 
   return (
 
     <div className="flight-results">
 
       <SearchBar setApiUrl={setApiUrl} setIsDirect={setIsDirect} />
-      <Flightresults flightData={flightData} isLoading={isLoading} />
 
-      <PageCounter
+      <Flightresults
+        flightData={flightData}
+        isLoading={isLoading}
         counterNr={counterNr}
-        setNrOnCounter={setNrOnCounter}
-      />
+        setNrOnCounter={setNrOnCounter} />
 
-      <div className="flight-results">
-
-        {
-          flightData !== null
-            ? flightData.data.map(flight => {
-              return <Flight
-                key={flight.id}
-                flight={flight}
-                //comes from search
-                dateFrom={flight.dateFrom}
-                //comes from search
-                dateTo={flight.dateTo}
-                isDirect={isDirect}
-              />
-            })
-            : <>
-              {
-                flightData === null && isLoading === true
-                  ? <p>Loading...</p>
-                  : <p>Fly somewhere!</p>
-              }
-            </>
-        }
-
-
-
-      </div>
     </div >
   );
 };
