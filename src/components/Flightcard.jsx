@@ -1,10 +1,31 @@
-import './App.css'
-import { useEffect, useState } from 'react'
+import { DateTime } from 'luxon';
+import Connection from './Connection';
 
-const outboundUrl = "https://api.skypicker.com/flights?fly_from=PRG&fly_to=VLC&partner={data4youcbp202106}"
-const returnUrl = "https://api.skypicker.com/flights?fly_from=VLC&fly_to=PRG&partner={data4youcbp202106}"
+export default function Flight({ flight, dateFrom, dateTo }) {
+
+    const timeFrom = DateTime.fromMillis(flight.dTime * 1000).toFormat('hh:mm')
+    const timeTo = DateTime.fromMillis(flight.aTime * 1000).toFormat('hh:mm')
 
 
-export default Flightcard(){
+    return (
+        <div className='flight-result'>
+            <h2>{flight.cityFrom}({flight.flyFrom})-{flight.cityTo}({flight.flyTo})</h2>
+            <h3>{dateFrom}-{dateTo}</h3>
+            <h4>{timeFrom}-{timeTo}</h4>
+            <h4>Connecting flights: </h4>
+            <div className="connections">
+                {
+                    flight.route.map(connection => {
+                        return <Connection
+                            key={connection.id}
+                            connection={connection}
+                        />
+                    })
+                }
+            </div>
+            <h4>{flight.price}€</h4>
 
+
+        </div>
+    )
 }
