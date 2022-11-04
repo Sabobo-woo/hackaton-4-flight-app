@@ -2,7 +2,7 @@ import React from 'react';
 import Flight from './Flightcard';
 import PageCounter from './PageCounter';
 
-export default function ({ flightData, isLoading, counterNr, setNrOnCounter }) {
+export default function ({ flightData, isLoading, counterNr, setNrOnCounter, isDirect }) {
   if (flightData === null && isLoading === false)
     return (<p> Come fly with me? </p>)
   if (flightData === null) {
@@ -32,6 +32,7 @@ export default function ({ flightData, isLoading, counterNr, setNrOnCounter }) {
             dateFrom={flight.dateFrom}
             //comes from search
             dateTo={flight.dateTo}
+            isDirect={isDirect}
           />
         })
       }

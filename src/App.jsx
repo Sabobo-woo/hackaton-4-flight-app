@@ -82,7 +82,9 @@ const App = () => {
         flightData={flightData}
         isLoading={isLoading}
         counterNr={counterNr}
-        setNrOnCounter={setNrOnCounter} />
+        setNrOnCounter={setNrOnCounter}
+        isDirect={isDirect}
+      />
 
     </div >
   );

@@ -24,7 +24,7 @@ export default function Flight({ flight, dateFrom, dateTo, isDirect }) {
                             })
                         }
                     </div>
-                    <h4>{flight.price}€</h4>)
+                    <h4>{flight.price}€</h4>
                 </>)
         } else if (isDirect === true && flight.route.length == 1) {
             return (
@@ -43,11 +43,11 @@ export default function Flight({ flight, dateFrom, dateTo, isDirect }) {
                             })
                         }
                     </div>
-                    <h4>{flight.price}€</h4>)
+                    <h4>{flight.price}€</h4>
                 </>)
         } else {
             return (
-                <h2>No flights D:</h2>
+                <></>
             )
         }
     }
