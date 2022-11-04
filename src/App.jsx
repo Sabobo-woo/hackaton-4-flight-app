@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import Flight from './components/Flightcard';
@@ -77,6 +76,7 @@ const App = () => {
 
   return (
     <div className="flight-results">
+
 
       <SearchBar apiUrl={apiUrl} setApiUrl={setApiUrl} />
 

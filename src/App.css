@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+ justify-content: space-around;
 }
 
 .App-logo {
@@ -35,4 +38,60 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+html {
+  
+  background-image: url("istockphoto-167309218-612x612.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw,100vh;
+  background-attachment: fixed;
+  
+background-position: 0px -260px  ;
+}
+
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: space-between;
+  background-color: rgb(178, 240, 240);
+  border: 1px solid black;
+  border-radius: 2px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  
+}
+
+.counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  padding-top: 19px;
+}
+
+.flight-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+padding: 3%;
+}
+
+.flight-result {
+  
+display: flex;
+flex-direction: column;
+background-color: rgba(129, 131, 140, 0.3);
+justify-content: center;
+justify-items: center;
+align-items: center;
+width: 60%;
+height:60%;
+margin: 0,auto;
+
+
+
+
 }
